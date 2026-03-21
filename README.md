@@ -6,7 +6,7 @@ This project is a high-security SQL query and reporting tool. It is designed wit
 
 | Main Query Terminal | System Documentation |
 | :--- | :--- |
-| ![Index Page](./docs/screenshots/index.jpg) | ![Documentation Page](./docs/screenshots/documentation.jpg) |
+| <img src="./docs/screenshots/index.jpg" width="400"> | <img src="./docs/screenshots/documentation.jpg" width="400"> |
 | *The primary interface for executing read-only SQL queries with real-time regex filtering.* | *Detailed internal documentation accessible to authorized administrative users.* |
 
 ## 🚀 Deployment Checklist
