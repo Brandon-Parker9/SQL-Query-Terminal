@@ -102,7 +102,7 @@
     // 1. Fetch data from Python on page load
     async function loadSavedQueries() {
         try {
-            const response = await fetch(`${API_URL}/queries`);
+            const response = await fetch(`/api/queries`);
             const data = await response.json();
             // Clear the current list and render the new data
             savedQueries = data; 
@@ -123,7 +123,7 @@
         resultsContainer.innerHTML = '<p class="text-zinc-400 animate-pulse font-mono">Executing query on server...</p>';
         
         try {
-            const response = await fetch(`${API_URL}/execute`, {
+            const response = await fetch(`/api/execute`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sql: sql })
@@ -212,7 +212,7 @@
         }
 
         try {
-            const response = await fetch(`${API_URL}/queries`, {
+            const response = await fetch(`/api/queries`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, sql })
@@ -233,7 +233,7 @@
     async function deleteQuery(id) {
         if (confirm("Are you sure you want to delete this saved query?")) {
             try {
-                const response = await fetch(`${API_URL}/queries/${id}`, {
+                const response = await fetch(`/api/queries/${id}`, {
                     method: 'DELETE'
                 });
 
@@ -257,7 +257,7 @@
         btn.innerText = "Generating...";
 
         try {
-            const response = await fetch(`${API_URL}/export`, {
+            const response = await fetch(`/api/export`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sql: sql })

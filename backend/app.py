@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 from fastapi.responses import StreamingResponse
 import re
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -23,7 +24,8 @@ READONLY_CONFIG = {
     "user": "read_only_user",
     "password": "read_only_pass",
     "host": "localhost",
-    "port": "5432"
+    "port": "5432",
+    "sslmode": "require"
 }
 
 # For SAVING/DELETING queries (Postgres admin)
@@ -32,7 +34,8 @@ ADMIN_CONFIG = {
     "user": "postgres",
     "password": "password",
     "host": "localhost",
-    "port": "5432"
+    "port": "5432",
+    "sslmode": "require"
 }
 
 class QueryRequest(BaseModel):
@@ -137,3 +140,9 @@ async def export_excel(request: QueryRequest):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+# THIS MUST BE AT THE BOTTOM OF THE FILE
+# Mount the frontend directory to serve static files
+# 'directory' points to your frontend folder relative to app.py
+# 'html=True' automatically looks for index.html when you visit the root URL
+app.mount("/", StaticFiles(directory="../frontend", html=True), name="static")
