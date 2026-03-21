@@ -2,6 +2,13 @@
 
 This project is a high-security SQL query and reporting tool. It is designed with a dual-layer defense: a Python-based regex filter and a database-level read-only user.
 
+## 🖼️ Visual Overview
+
+| Main Query Terminal | System Documentation |
+| :--- | :--- |
+| ![Index Page](./docs/screenshots/index.png) | ![Documentation Page](./docs/screenshots/documentation.png) |
+| *The primary interface for executing read-only SQL queries with real-time regex filtering.* | *Detailed internal documentation accessible to authorized administrative users.* |
+
 ## 🚀 Deployment Checklist
 
 ### 1. Code Adjustments (`app.py`)
