@@ -6,7 +6,7 @@ sudo apt install postgresql postgresql-contrib python3 python3-pip -y
 sudo service postgresql start
 
 # --- 2. PYTHON PACKAGES ---
-pip install fastapi uvicorn pandas psycopg2-binary openpyxl --break-system-packages
+pip install fastapi uvicorn pandas psycopg2-binary openpyxl sqlalchemy
 
 # --- 3. DATABASE CREATION (Shell Level) ---
 # Set admin password
