@@ -2,7 +2,7 @@
 
 /* 2. CLEANUP (Optional: Resets the environment)
 */
-DROP TABLE IF EXISTS saved_queries, sales_records, employees, departments CASCADE;
+DROP TABLE IF EXISTS saved_queries, sales_records, employees, departments, company_assets CASCADE;
 
 /* 3. CORE TABLE STRUCTURE
 */
@@ -39,6 +39,22 @@ CREATE TABLE saved_queries (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Table 5: Company Assets (High Column Density for UI Testing)
+CREATE TABLE company_assets (
+    asset_id SERIAL PRIMARY KEY,
+    asset_tag VARCHAR(20) UNIQUE NOT NULL,
+    category VARCHAR(50),
+    model_name VARCHAR(100),
+    serial_number VARCHAR(100),
+    assigned_to INT REFERENCES employees(emp_id),
+    purchase_date DATE,
+    purchase_cost NUMERIC(12, 2),
+    current_status VARCHAR(20) DEFAULT 'Active', -- Active, In Repair, Retired, Lost
+    physical_location VARCHAR(100),
+    last_maintenance_date DATE,
+    notes TEXT
+);
+
 /* 4. DATA POPULATION
 */
 -- Departments
@@ -66,6 +82,19 @@ INSERT INTO sales_records (emp_id, sale_amount, sale_date) VALUES
 (1, 2100.00, '2026-03-12'), (13, 8900.00, '2026-03-15'), (14, 12500.00, '2026-03-18'),
 (15, 14000.00, '2026-03-19');
 
+-- Company Assets
+INSERT INTO company_assets 
+(asset_tag, category, model_name, serial_number, assigned_to, purchase_date, purchase_cost, current_status, physical_location, last_maintenance_date, notes) 
+VALUES 
+('ASSET-001', 'Laptop', 'MacBook Pro M3', 'SN-992834-X', 1, '2024-01-15', 3499.00, 'Active', 'Building A - Floor 2', '2025-01-10', 'Standard issue for Analytics team.'),
+('ASSET-002', 'Laptop', 'Dell XPS 15', 'SN-112233-D', 2, '2023-11-20', 2899.00, 'Active', 'Remote - Ontario', '2024-11-15', 'High-performance dev machine.'),
+('ASSET-003', 'Server', 'Dell PowerEdge R750', 'SRV-887766-P', 3, '2022-06-10', 12500.00, 'Active', 'Data Center - Rack 4', '2025-02-28', 'Primary SQL Host.'),
+('ASSET-004', 'Monitor', 'UltraWide 49-inch', 'MON-445566-U', 3, '2022-07-01', 1200.00, 'In Repair', 'Building A - IT Lab', NULL, 'Flickering issues reported.'),
+('ASSET-005', 'Vehicle', 'Ford Maverick XLT', 'VIN-334455-F', 5, '2026-01-05', 38000.00, 'Active', 'Fleet Parking - Lot B', '2026-03-01', 'Logistics and site visits.'),
+('ASSET-006', 'Tablet', 'iPad Pro 12.9', 'TAB-778899-I', 4, '2024-03-12', 1099.00, 'Active', 'Building B - Marketing', NULL, 'Used for design reviews.'),
+('ASSET-007', 'Workstation', 'HP Z8 G5', 'SN-556677-H', 7, '2023-05-22', 8500.00, 'Active', 'Building C - R&D', '2024-05-20', 'Used for structural simulations.'),
+('ASSET-008', 'Networking', 'Cisco Nexus Switch', 'SW-990011-C', 6, '2021-09-15', 4200.00, 'Retired', 'Storage - Offline', '2023-09-10', 'Decommissioned after upgrade.');
+
 /* 5. PRESET BUSINESS QUERIES (UI SIDEBAR)
 */
 INSERT INTO saved_queries (query_name, sql_text) VALUES 
@@ -73,6 +102,7 @@ INSERT INTO saved_queries (query_name, sql_text) VALUES
 ('View: All Departments', 'SELECT * FROM departments;'),
 ('View: All Employees', 'SELECT * FROM employees;'),
 ('View: All Sales Records', 'SELECT * FROM sales_records;'),
+('View: ALL Company Assets', 'SELECT * FROM company_assets ORDER BY purchase_date DESC;'),
 -- Business Insights
 ('Report: Full Employee Directory', 'SELECT e.first_name, e.last_name, d.dept_name, e.salary FROM employees e JOIN departments d ON e.dept_id = d.dept_id ORDER BY d.dept_name ASC;'),
 ('Report: Dept Budget vs Payroll', 'SELECT d.dept_name, d.budget, SUM(e.salary) as payroll FROM departments d JOIN employees e ON d.dept_id = e.dept_id GROUP BY d.dept_name, d.budget;'),

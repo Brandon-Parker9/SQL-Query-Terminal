@@ -23,10 +23,10 @@ fi
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")") # More robust path detection
 
 echo "Initializing database structure..."
-sudo -u postgres psql -d insights_db -f "$SCRIPT_DIR/database_init.sql"
+sudo -u postgres psql -d insights_db < "$SCRIPT_DIR/database_init.sql"
 
 echo "Populating default data..."
-sudo -u postgres psql -d insights_db -f "$SCRIPT_DIR/default_database_population.sql"
+sudo -u postgres psql -d insights_db < "$SCRIPT_DIR/default_database_population.sql"
 
 echo "------------------------------------------------"
 echo "✅ Environment & Database Re-initialized!"
