@@ -63,25 +63,25 @@
     <main class="flex-1 p-8 overflow-hidden min-w-0">
         <div class="max-w-full mx-auto space-y-8">
             <header class="border-l-4 border-primary pl-6 py-2">
-                <h1 class="text-4xl font-bold tracking-tight">Query Terminal</h1>
-                <p class="text-sm text-zinc-500 uppercase tracking-widest mt-1">Business Insights Team | Production</p>
+                <h1 class="text-xl font-bold tracking-tight">Query Terminal</h1>
             </header>
 
             <section class="bg-white p-6 border border-zinc-200 shadow-sm">
                 <div class="flex justify-between items-end mb-4">
                     <label class="text-xs font-bold uppercase tracking-widest" for="sql-editor">SQL Input</label>
-                    <span class="font-mono text-[10px] text-zinc-500 bg-zinc-100 px-2 py-1 uppercase">Standard: ISO 9075</span>
                 </div>
                 <textarea id="sql-editor" aria-label="Enter SQL Query" class="w-full h-64 bg-zinc-50 p-6 font-mono text-sm border-b-2 border-zinc-300 focus:border-primary focus:ring-0 outline-none resize-none leading-relaxed" spellcheck="false">-- Select a saved query or type here...</textarea>
                 <div class="mt-4 flex justify-end">
-                    <button id="btn-execute" class="flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold uppercase text-xs tracking-widest hover:brightness-110 transition-all focus-ring">
+                    <button id="btn-execute" class="flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold uppercase text-xs tracking-widest hover:brightness-110 transition-all focus-ring">
                         <span class="material-symbols-outlined text-base">play_arrow</span> Execute Query
                     </button>
                 </div>
             </section>
 
             <div class="flex justify-between items-center">
-                <h2 class="text-xl font-bold">Results Preview</h2>
+                <header class="border-l-4 border-primary pl-6 py-2">
+                    <h2 class="text-xl font-bold">Results Preview</h2>
+                </header>
                 <button id="btn-export" class="flex items-center gap-2 px-4 py-2 border-2 border-primary text-primary font-bold uppercase text-xs tracking-widest hover:bg-primary hover:text-white transition-all focus-ring">
                     <span class="material-symbols-outlined text-base">download</span> Download Excel
                 </button>
