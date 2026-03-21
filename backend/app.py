@@ -7,6 +7,8 @@ from io import BytesIO
 from fastapi.responses import StreamingResponse
 import re
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 
 app = FastAPI()
 
@@ -63,6 +65,17 @@ def is_safe_sql(sql: str) -> bool:
     return True
 
 # --- ENDPOINTS ---
+
+@app.get("/favicon.svg", include_in_schema=False)
+async def favicon():
+    # We point the /favicon.ico request to your actual .svg file
+    file_path = os.path.join(os.path.dirname(__file__), "..", "frontend", "canadian-maple-leaf-brands-solid-full.svg")
+    
+    if os.path.exists(file_path):
+        # We serve the SVG but label it correctly for the browser
+        return FileResponse(file_path, media_type="image/svg+xml")
+    
+    return Response(status_code=204)
 
 @app.post("/api/execute")
 async def execute_query(request: QueryRequest):
