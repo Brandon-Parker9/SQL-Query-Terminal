@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Business Insights | Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { "primary": "#bc000a", "background": "#fbf9f8", "surface": "#f6f3f2" },
+                    fontFamily: { "headline": ["Public Sans"], "body": ["Public Sans"] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-zinc-900 font-body">
+
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-white border-b border-zinc-200">
+    <div class="flex items-center gap-8">
+        <span class="text-xl font-black text-primary tracking-tighter uppercase">Business Insights</span>
+        <nav class="hidden md:flex gap-6">
+            <a class="text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-primary transition-colors" href="index.html">Query Editor</a>
+            <a class="text-xs font-bold uppercase tracking-widest text-primary border-b-2 border-primary pb-1" href="documentation.html">Documentation</a>
+        </nav>
+    </div>
+</header>
+
+<div class="flex pt-16">
+    <aside class="fixed left-0 h-screen w-64 bg-surface flex flex-col py-4 border-r border-zinc-200">
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center gap-3 px-6 py-3 text-sm font-bold text-primary bg-white border-l-4 border-primary" href="#schema">Data Schema</a>
+            <a class="flex items-center gap-3 px-6 py-3 text-sm text-zinc-600 hover:bg-zinc-200" href="#security">Security Protocol</a>
+            <a class="flex items-center gap-3 px-6 py-3 text-sm text-zinc-600 hover:bg-zinc-200" href="#usage">Usage Tips</a>
+        </nav>
+    </aside>
+
+    <main class="ml-64 px-12 py-16 max-w-4xl">
+        <section id="schema" class="mb-16">
+            <h1 class="text-5xl font-black tracking-tight mb-8 uppercase">System <span class="text-primary italic">Schema</span></h1>
+            <p class="text-lg mb-6 text-zinc-700">The database consists of three primary tables designed for sales and personnel tracking.</p>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-zinc-300 pl-4">
+                    <h3 class="font-bold text-lg uppercase">departments</h3>
+                    <p class="text-sm text-zinc-500 font-mono">Columns: dept_id (PK), dept_name, budget</p>
+                </div>
+                <div class="border-l-4 border-zinc-300 pl-4">
+                    <h3 class="font-bold text-lg uppercase">employees</h3>
+                    <p class="text-sm text-zinc-500 font-mono">Columns: emp_id (PK), first_name, last_name, dept_id (FK), salary, hire_date</p>
+                </div>
+                <div class="border-l-4 border-zinc-300 pl-4">
+                    <h3 class="font-bold text-lg uppercase">sales_records</h3>
+                    <p class="text-sm text-zinc-500 font-mono">Columns: sale_id (PK), emp_id (FK), sale_amount, sale_date</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="security" class="mb-16 pt-8 border-t border-zinc-200">
+            <h2 class="text-2xl font-bold uppercase mb-4 text-primary">Security & Protection</h2>
+            <p class="mb-4">This terminal employs a <strong>Dual-Layer Defense</strong> system:</p>
+            <ul class="list-disc pl-6 space-y-2 text-zinc-700">
+                <li><strong>Application Layer:</strong> A Python-based Regex filter intercepts queries to block destructive keywords like <code>DROP</code> or <code>DELETE</code>.</li>
+                <li><strong>Database Layer:</strong> The system connects via the <code>read_only_user</code>, which is physically restricted from modifying data at the Postgres level.</li>
+            </ul>
+        </section>
+
+        <section id="usage" class="mb-16 pt-8 border-t border-zinc-200">
+            <h2 class="text-2xl font-bold uppercase mb-4">Sample Query</h2>
+            <div class="bg-zinc-900 p-6 font-mono text-sm text-zinc-100 overflow-x-auto">
+                <pre><code>-- Find top earners by department
+SELECT d.dept_name, e.first_name, e.salary 
+FROM employees e 
+JOIN departments d ON e.dept_id = d.dept_id 
+ORDER BY e.salary DESC;</code></pre>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
